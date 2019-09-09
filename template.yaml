@@ -1,5 +1,20 @@
 Transform: AWS::Serverless-2016-10-31
 
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: usher-proxy
+    Description: |
+      A serverless proxy that gives you dynamic subdomains that map your feature branches to their ephemeral environments.
+    Author: Dan Van Brunt
+    SpdxLicenseId: AGPL-3.0-only
+    LicenseUrl: LICENSE.txt
+    ReadmeUrl: README.md
+    Labels:
+      ["proxy", "serverless", "jamstack", "feature", "branch", "deployments"]
+    HomePageUrl: https://github.com/iDVB/usher-proxy
+    SemanticVersion: 0.0.1
+    SourceCodeUrl: https://github.com/iDVB/usher-proxy
+
 Parameters:
   Domain:
     Type: String

@@ -12,7 +12,7 @@ Metadata:
     Labels:
       ["proxy", "serverless", "jamstack", "feature", "branch", "deployments"]
     HomePageUrl: https://github.com/iDVB/usher-proxy
-    SemanticVersion: 0.0.1
+    SemanticVersion: 0.0.3
     SourceCodeUrl: https://github.com/iDVB/usher-proxy
 
 Parameters:
@@ -65,7 +65,7 @@ Resources:
     Type: AWS::IAM::Role
     Properties:
       Path: /
-      RoleName: !Sub ${AWS::StackName}-proxyentry-rolespo
+      RoleName: !Sub ${AWS::StackName}-proxyentry-role
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -89,8 +89,8 @@ Resources:
                 Action:
                   - dynamodb:*
                 Resource:
-                  - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/stack-proxy-*"
-                  - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/stack-proxy-*/index/*"
+                  - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${AWS::StackName}-domainmap"
+                  - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${AWS::StackName}-domainmap/index/*"
   OriginRequestProxyLambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -244,6 +244,7 @@ Resources:
           GITHUB_WEBHOOK_SECRET: !Ref GitHubWebhookSecret
           GITHUB_ACCESS_TOKEN: !Ref GitHubAccessToken
           PROD_CI_ROLE_ARN: !GetAtt DeployerRole.Arn
+          PROD_DEPLOYMENT_BUCKET: marketing-demo-deploy-bucket
   GithubWebhookRole:
     Type: AWS::IAM::Role
     Properties:

@@ -31,8 +31,9 @@ const {
   S3_CONST = 'AWS::S3::Bucket',
   REGEX_ROLE_ARN = /^arn:aws:(\w+)::(\d+):role\/([A-Za-z0-9-]+)$/,
   IS_SINGLE_ACCOUNT =
+    !DEV_CI_ROLE_ARN ||
     PROD_CI_ROLE_ARN.match(REGEX_ROLE_ARN)[2] ===
-    DEV_CI_ROLE_ARN.match(REGEX_ROLE_ARN)[2],
+      DEV_CI_ROLE_ARN.match(REGEX_ROLE_ARN)[2],
   DEPLOYMENT_BUCKET_BASEDIRECTORY = `serverless`;
 
 let creds, cfn, s3, CI_ROLE_ARN, DEPLOYMENT_BUCKET;
